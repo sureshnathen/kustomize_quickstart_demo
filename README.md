@@ -1,0 +1,1 @@
+# kustomize_quickstart_demo
