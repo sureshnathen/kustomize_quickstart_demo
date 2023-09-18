@@ -8,4 +8,4 @@ metadata:
 data:
   SONAR_JDBC_USERNAME: sonar1
   SONAR_JDBC_PASSWORD: sonar2
-  SONAR_JDBC_URL: jdbc:postgresql://33.19.87.222:5432/sonar  
+  SONAR_JDBC_URL: jdbc:postgresql://33.19.87.222:5432/sonar
