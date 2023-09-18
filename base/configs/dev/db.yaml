@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app-config-name: db
+    app.config-component: api-1
+  name: config-map-api-1
+data:
+  SONAR_JDBC_USERNAME: sonar
+  SONAR_JDBC_PASSWORD: sonar
+  SONAR_JDBC_URL: jdbc:postgresql://33.19.87.237:5432/sonar  

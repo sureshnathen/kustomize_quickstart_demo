@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: sit-overlay
+
+namespace: sit
+
+resources:
+  - namespace.yaml
+  - ../../base/configs/sit
+  - ../../base/api-1
+  - ../../base/ingress
+
+patchesStrategicMerge:
+- api-1-override.yaml
+
+patches:
+- target:
+    kind: Ingress
+    name: app-ingress
+  path: sit-ingress-patch.json

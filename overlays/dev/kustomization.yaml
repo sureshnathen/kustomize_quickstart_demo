@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: dev-overlay
+
+namespace: dev
+
+resources:
+  - namespace.yaml
+  - ../../base/configs/dev
+  - ../../base/api-1
+  - ../../base/api-2
+  - ../../base/ingress
+
+
+patchesStrategicMerge:
+- api-1-override.yaml
+- api-2-override.yaml  
+
+patches:
+- target:
+    kind: Ingress
+    name: app-ingress
+  path: dev-ingress-patch.json
