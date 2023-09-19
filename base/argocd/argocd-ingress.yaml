@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argo-ingress
+  labels:
+    kcert.dev/ingress: "managed"
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "false"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      if ($host = '' ) {
+        rewrite ^ https://www.$request_uri permanent;
+      }
+spec:
+  ingressClassName: "nginx"
+  tls:
+  - hosts:
+    - devops.demo.agileguru.org
+    secretName: devops-ingress-host-secret
+  rules:
+  - host: devops.demo.agileguru.org
+    http:
+      paths:
+      - path: /argo
+        pathType: Prefix
+        backend:
+          service: 
+            name: argocd-server
+            port: 
+                number: 80
