@@ -85,31 +85,31 @@ patches:
 
 1. Change the host in the ingress and remove the comment from dev-ingress-patch.json and sit-ingress-patch.json else you will get error like
  
-```
-error: trouble configuring builtin PatchTransformer with config: `
-path: dev-ingress-patch.json
-target:
-  kind: Ingress
-  name: app-ingress
-: unable to parse SM or JSON patch from [[
-    {
-        "op": "replace",
-        "path": "/spec/rules/0/host",
-        "value": "dev.agileguru.org" // Change the host here and remove this comment
-    },
-    {
-        "op": "replace",
-        "path": "/spec/tls/0/hosts/0",
-        "value": "dev.agileguru.org" // Change the host here and remove this comment
-    }
-]]
-```
+    ```
+    error: trouble configuring builtin PatchTransformer with config: `
+    path: dev-ingress-patch.json
+    target:
+    kind: Ingress
+    name: app-ingress
+    : unable to parse SM or JSON patch from [[
+        {
+            "op": "replace",
+            "path": "/spec/rules/0/host",
+            "value": "dev.agileguru.org" // Change the host here and remove this comment
+        },
+        {
+            "op": "replace",
+            "path": "/spec/tls/0/hosts/0",
+            "value": "dev.agileguru.org" // Change the host here and remove this comment
+        }
+    ]]
+    ```
 2. Do a dry-run and then apply using commands given below using  
 
-```
-$  kubectl apply -k overlays/dev --dry-run=client
-$  kubectl apply -k overlays/sit --dry-run=client
-```
+    ```
+    $  kubectl apply -k overlays/dev --dry-run=client
+    $  kubectl apply -k overlays/sit --dry-run=client
+    ```
 ### Things To You Need To Do
 1. Keep the Replica Count to 0 in the base configuration
 1. Always Specify the Namespace in Overlay kustomization.yaml
