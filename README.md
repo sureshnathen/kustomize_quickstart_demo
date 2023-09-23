@@ -1,15 +1,19 @@
 # Kustomize Quick Start Demo
 
-A repository for a ready to use as template for [Kustomize](https://www.kustomize.io)  
+A repository for a ready to use as template for [Kustomize][def3]  
 
 ## Assumptions 
 
 1. You have a public DNS for your website
-1. Using nignx ingress controller as described in [here](https://github.com/agileguru/gke_nginx_kcert_quick_start)
-1. Using kcert SSL manager for your public site as described [here](https://github.com/agileguru/gke_nginx_kcert_quick_start)
+1. Using nignx ingress controller as described in [here][def2]
+1. Using kcert SSL manager for your public site as described [here][def2]
 1. Have a working kubectl and respective kube config configuration. If you dont have the configuraation then you can execute the following command 
 
     > gcloud container clusters get-credentials &lt;cluster name&gt; --zone &lt;cluster zone&gt; --project &lt;project id having the cluster&gt;
+
+## Install kubectl CLI. 
+
+Follow the documentation at [https://kubernetes.io/docs/tasks/tools/][def]
 
 ## Creating the folder structure ( best practice )
 
@@ -77,7 +81,35 @@ patches:
   path: dev-ingress-patch.json
  ```
 
+### How to Work with kustomize 
 
+1. Change the host in the ingress and remove the comment from dev-ingress-patch.json and sit-ingress-patch.json else you will get error like
+ 
+```
+error: trouble configuring builtin PatchTransformer with config: `
+path: dev-ingress-patch.json
+target:
+  kind: Ingress
+  name: app-ingress
+: unable to parse SM or JSON patch from [[
+    {
+        "op": "replace",
+        "path": "/spec/rules/0/host",
+        "value": "dev.agileguru.org" // Change the host here and remove this comment
+    },
+    {
+        "op": "replace",
+        "path": "/spec/tls/0/hosts/0",
+        "value": "dev.agileguru.org" // Change the host here and remove this comment
+    }
+]]
+```
+2. Do a dry-run and then apply using commands given below using  
+
+```
+$  kubectl apply -k overlays/dev --dry-run=client
+$  kubectl apply -k overlays/sit --dry-run=client
+```
 ### Things To You Need To Do
 1. Keep the Replica Count to 0 in the base configuration
 1. Always Specify the Namespace in Overlay kustomization.yaml
@@ -90,3 +122,7 @@ patches:
 1. Hard-Coding namespace in Base Configurations
 1. Mix Configurations and Application Code In the Same Folder
 1. Git branches for Environment configuration ( know as  parity drift )  
+
+[def]: https://kubernetes.io/docs/tasks/tools/
+[def2]: https://github.com/agileguru/gke_nginx_kcert_quick_start
+[def3]: https://www.kustomize.io
