@@ -15,10 +15,10 @@ spec:
   ingressClassName: "nginx"
   tls:
   - hosts:
-    - invalid.agileguru.org
+    - invalid.invalidhost.org
     secretName: ingress-host-secret
   rules:
-  - host: invalid.agileguru.org
+  - host: invalid.invalidhost.org
     http:
       paths:
       - path: /
