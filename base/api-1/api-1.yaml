@@ -5,7 +5,7 @@ metadata:
     app: api-1
   name: api-1-deployment
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: api-1
